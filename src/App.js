@@ -17,63 +17,71 @@ function App() {
       id: 1,
       name: "firstName",
       label: "First Name",
-      errorMessage: "Error",
+      errorMessage: "Username should be 3-16 characters and shouldn't include any special character!",
+      pattern: "^[A-Za-z0-9]{3,16}$",
       placeholder: "Fist name",
       type: "text",
+      required: true,
     },
     {
       id: 2,
       name: "lastName",
       label: "Last Name",
-      errorMessage: "Error",
+      errorMessage: "It should be a valid email address!",
       placeholder: "Last name",
       type: "text",
+      required: true,
     },
     {
       id: 3,
       name: "birthday",
-      label: "Last Name",
+      label: "Date of Birth",
       type: "date",
     },
     {
       id: 4,
       name: "cpf",
       label: "CPF",
-      errorMessage: "Error",
-      placeholder: "CPF",
+      errorMessage: "Invalid format.",
+      pattern: "[0-9]{3}[.][0-9]{3}[.][0-9]{3}[-][0-9]{2}",
+      placeholder: "000.000.000-00",
       type: "text",
+      required: true,
     },
     {
       id: 5,
       name: "password",
       label: "Password",
-      errorMessage: "Error",
-      placeholder: "senha",
+      errorMessage: "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
+      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+      placeholder: "Senha",
       type: "password",
+      required: true,
     },
     {
       id: 6,
       name: "confirmPassword",
       label: "Confirm Password",
-      errorMessage: "Error",
-      placeholder: "senha",
+      errorMessage: "Passwords don't match!",
+      pattern: values.password,
+      placeholder: "Senha",
       type: "password",
+      required: true,
     }
   ]
 
-  console.log(values)
-
-  function onChange(e){
-    setValues({...values, [e.target.name]: e.target.value })
+  function onChange(e) {
+    setValues({ ...values, [e.target.name]: e.target.value })
   }
 
-  function onSubmit(e){
+  function onSubmit(e) {
     e.preventDefault();
   }
 
   return (
     <div className='app'>
       <form onSubmit={onSubmit}>
+        <h1>Register</h1>
         {inputs.map(input => (
           <FormInput
             key={input.id}
@@ -81,10 +89,9 @@ function App() {
             value={values[input.name]}
             onChange={onChange}>
           </FormInput>
-          ))
+        ))
         }
-
-        <button>Submit</button>
+        <button>SUBMIT</button>
       </form>
     </div>
   )
